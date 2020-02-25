@@ -20,9 +20,5 @@ sensor = adafruit_max31865.MAX31865(spi, cs, rtd_nominal=100.0, wires=3)
 
 def leertemp():
     # Lee la temperatura
-    temp = sensor.temperature
-    # Imprime el valor de la temperatura en °C
-    print('Temperatura: {0:0.3f} °C'.format(temp))
-    # Se imprime el valor que está leyendo la resistencia
-    print('Resistencia: {0:0.3f} Ohms'.format(sensor.resistance))
+    temp = str(sensor.temperature)
     return temp

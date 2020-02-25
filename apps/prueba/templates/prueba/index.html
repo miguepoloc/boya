@@ -12,6 +12,6 @@
 <body>
     <p>Pruebas</p>
     {% if temp|length > 0 %}
-    {{ temp }}
+    {{ temp|floatformat:3 }} °C
     {% endif %}
 </body>
