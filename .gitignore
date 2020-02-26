@@ -134,3 +134,4 @@ dmypy.json
 node_modules/
 
 webpack-stats-local.json
+front/boya/static/
