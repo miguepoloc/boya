@@ -135,3 +135,7 @@ node_modules/
 
 webpack-stats-local.json
 front/boya/static/
+static/admin/
+static/bundles/
+static/rest_framework/
+env
