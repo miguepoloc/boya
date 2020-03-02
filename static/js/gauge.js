@@ -62,8 +62,8 @@ $(document).ready(function () {
     // Gauge temperatura 
     var chartTemp = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
         yAxis: {
-            min: 0,
-            max: 200,
+            min: 10,
+            max: 40,
             title: {
                 text: 'Temperatura'
             }
