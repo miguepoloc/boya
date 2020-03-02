@@ -12,7 +12,6 @@ import adafruit_max31865
 
 import psycopg2
 from datetime import datetime
-now = datetime.now()
 
 conexion1 = psycopg2.connect(database="prueba", user="pi", password="!nv3m4r")
 cursor1 = conexion1.cursor()
@@ -30,14 +29,16 @@ sensor = adafruit_max31865.MAX31865(spi, cs, rtd_nominal=100.0, wires=3)
 
 # Se crea un bucle infinito
 while True:
+    now = datetime.now()
+    fecha = str(now).split(".")
     # Lee la temperatura
     temp = sensor.temperature
     # Imprime el valor de la temperatura en °C
     print('Temperatura: {0:0.3f} °C'.format(temp))
     # Se imprime el valor que está leyendo la resistencia
     print('Resistencia: {0:0.3f} Ohms'.format(sensor.resistance))
-    datos = (round(sensor.temperature,3), now)
-    print(now)
+    datos = (round(sensor.temperature,3), fecha[0])
+    print(fecha[0])
     cursor1.execute(sql, datos)
     conexion1.commit()
     # Se espera 1 segundo
