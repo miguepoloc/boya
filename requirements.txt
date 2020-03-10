@@ -1,4 +1,5 @@
 Adafruit-Blinka==4.1.0
+adafruit-circuitpython-adxl34x==1.10.4
 adafruit-circuitpython-busdevice==4.2.1
 adafruit-circuitpython-max31865==2.1.4
 Adafruit-PlatformDetect==2.3.0
@@ -13,6 +14,7 @@ gunicorn==20.0.4
 isort==4.3.21
 lazy-object-proxy==1.4.3
 mccabe==0.6.1
+pigpio==1.45
 pkg-resources==0.0.0
 psycopg2==2.8.4
 pycodestyle==2.5.0
