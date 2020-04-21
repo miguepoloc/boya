@@ -5,4 +5,4 @@ from .models import Temperatura
 class TemperaturaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Temperatura
-        fields = ['id', 'temperatura', 'fecha']
+        fields = ['id', 'temperatura', 'fecha', "unidad", "flag", "latitud", "longitud"]
