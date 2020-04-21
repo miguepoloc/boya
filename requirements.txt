@@ -16,7 +16,6 @@ isort==4.3.21
 lazy-object-proxy==1.4.3
 mccabe==0.6.1
 pigpio==1.45
-pkg-resources==0.0.0
 psycopg2==2.8.4
 pycodestyle==2.5.0
 pyftdi==0.44.2
