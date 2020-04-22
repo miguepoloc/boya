@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'boya.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'prueba',
-        'USER': 'pi',
-        'PASSWORD': '!nv3m4r',
+        'NAME': 'boya',
+        'USER': 'admin',
+        'PASSWORD': 'Contrasena1!',
         'HOST': 'localhost',
         'PORT': '5432',
     }
