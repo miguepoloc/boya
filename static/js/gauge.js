@@ -75,7 +75,7 @@ $(document).ready(function () {
 
         series: [{
             name: 'Temperatura',
-            data: [0],
+            data: [23],
             dataLabels: {
                 format:
                     '<div style="text-align:center">' +
@@ -90,18 +90,18 @@ $(document).ready(function () {
 
     }));
 
-    setInterval(function () {
-        var point
-        $.get('/api/temperatura/', function (result) {
-            temperatura = result.results;
-            valor = temperatura[temperatura.length - 1].temperatura;
-            if (chartTemp) {
-                point = chartTemp.series[0].points[0];
-                point.update(valor);
-            }
-        });
-    },
-        2000
-    );
+    // setInterval(function () {
+    //     var point
+    //     $.get('/api/temperatura/', function (result) {
+    //         temperatura = result.results;
+    //         valor = temperatura[temperatura.length - 1].temperatura;
+    //         if (chartTemp) {
+    //             point = chartTemp.series[0].points[0];
+    //             point.update(valor);
+    //         }
+    //     });
+    // },
+    //     2000
+    // );
 });
 

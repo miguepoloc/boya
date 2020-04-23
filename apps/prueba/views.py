@@ -6,4 +6,4 @@ from django.http import HttpResponse
 def index(request):
     # temp = leertemp
     temp = "23.1234"
-    return render(request, 'prueba/index2.html', {"temp": temp})
+    return render(request, 'prueba/index.html', {"temp": temp})
