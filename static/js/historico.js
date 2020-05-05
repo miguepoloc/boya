@@ -4,11 +4,14 @@ Highcharts.getJSON(
         console.log(data);
         data = data.results;
         var lista = [];
+        var lista_csv = [];
         for (let index = 0; index < data.length; index++) {
             let fecha_UNIX = new Date(data[index].fecha).getTime() - 18000000
             lista.push([fecha_UNIX, data[index].temperatura]);
+            lista_csv.push([data[index].fecha, data[index].temperatura]);
+
         }
-        console.log(lista);
+        console.log(lista_csv);
 
         Highcharts.chart('container', {
             chart: {
@@ -61,5 +64,42 @@ Highcharts.getJSON(
                 data: lista
             }]
         });
+
+
+        // Aquí viene el dato
+
+        objeto_variable["csv"] = "";
+        objeto_variable["csv"] += "Nombre del proyecto:;" + "Boya de monitoreo de invemar" + "\r\n";
+        objeto_variable["csv"] += "Lugar:;" + "Santa Marta" + "\r\n";
+        objeto_variable["csv"] += "Id:;" + "1" + "\r\n";
+        // objeto_variable["csv"] += "Fecha:;" + fecha_ctd + "\r\n";
+        // objeto_variable["csv"] += "Latitud:;" + latitud_ctd + "\r\n";
+        // objeto_variable["csv"] += "Longitud:;" + longitud_ctd + "\r\n";
+        objeto_variable["csv"] += "" + "\r\n";
+        objeto_variable["csv"] += "" + "\r\n";
+
+        objeto_variable["csv"] += "" + "\r\n";
+        for (let ix = 0; ix < lista_csv.length; ix++) {
+            console.log(lista_csv[ix][0]);
+            objeto_variable["csv"] += String(lista_csv[ix][0]) + ";";
+            objeto_variable["csv"] += String(lista_csv[ix][1]);
+            objeto_variable["csv"] += "" + "\r\n";
+        }
+        objeto_variable["csv"] += "" + "\r\n";
     }
 );
+
+/******************************PROCESO PARA DESCARGAR CSV DE DATOS DE CTD   *******************************/
+
+// Objeto que almacena las variables
+var objeto_variable = new Object();
+
+function descargarCTD(evt) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(objeto_variable["csv"]));
+    element.setAttribute('download', "export.csv");
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
