@@ -17,18 +17,38 @@
   <link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="{% static 'plugins/jqvmap/jqvmap.min.css' %}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.csss' %}">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
   <!-- summernote -->
   <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.css' %}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <!-- Arcgis -->
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/css/main.css">
+
+  <!-- Highcharts -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="https://code.highcharts.com/modules/data.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -401,10 +421,10 @@
                   <div class="card-tools">
                     <ul class="nav nav-pills ml-auto">
                       <li class="nav-item">
-                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Puntual</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Histórico</a>
                       </li>
                     </ul>
                   </div>
@@ -412,11 +432,15 @@
                 <div class="card-body">
                   <div class="tab-content p-0">
                     <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
+                    <div class="chart tab-pane active" id="revenue-chart" style="position: relative;">
+                      <figure class="highcharts-figure tm-flex-center tm-flex-col">
+                        <div id="container-speed" class="chart-container"></div>
+                      </figure>
                     </div>
-                    <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                      <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                    <div class="chart tab-pane" id="sales-chart" style="position: relative;">
+                      <figure class="highcharts-figure">
+                        <div id="container"></div>
+                      </figure>
                     </div>
                   </div>
                 </div><!-- /.card-body -->
@@ -451,7 +475,6 @@
                       <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
                       <!-- General tools such as edit or delete-->
                       <div class="tools">
-                        <i class="fas fa-edit"></i>
                         <i class="fas fa-trash-o"></i>
                       </div>
                     </li>
@@ -467,7 +490,6 @@
                       <span class="text">Anclar la boya a la lancha</span>
                       <small class="badge badge-info"><i class="far fa-clock"></i> 30 mins</small>
                       <div class="tools">
-                        <i class="fas fa-edit"></i>
                         <i class="fas fa-trash-o"></i>
                       </div>
                     </li>
@@ -483,7 +505,6 @@
                       <span class="text">Revisar el estado de los sensores</span>
                       <small class="badge badge-warning"><i class="far fa-clock"></i> 1 hora</small>
                       <div class="tools">
-                        <i class="fas fa-edit"></i>
                         <i class="fas fa-trash-o"></i>
                       </div>
                     </li>
@@ -499,7 +520,6 @@
                       <span class="text">Descargar los datos</span>
                       <small class="badge badge-success"><i class="far fa-clock"></i> 30 mins</small>
                       <div class="tools">
-                        <i class="fas fa-edit"></i>
                         <i class="fas fa-trash-o"></i>
                       </div>
                     </li>
@@ -515,7 +535,6 @@
                       <span class="text">Cerrar la tapa</span>
                       <small class="badge badge-primary"><i class="far fa-clock"></i> 1 min</small>
                       <div class="tools">
-                        <i class="fas fa-edit"></i>
                         <i class="fas fa-trash-o"></i>
                       </div>
                     </li>
@@ -531,7 +550,6 @@
                       <span class="text">Desanclar la boya</span>
                       <small class="badge badge-secondary"><i class="far fa-clock"></i> 20 mins</small>
                       <div class="tools">
-                        <i class="fas fa-edit"></i>
                         <i class="fas fa-trash-o"></i>
                       </div>
                     </li>
@@ -570,29 +588,9 @@
                   <!-- /.card-tools -->
                 </div>
                 <div class="card-body">
-                  <div id="world-map" style="height: 250px; width: 100%;"></div>
+                  <div id="geovisor" style="height: 250px; width: 100%;"></div>
                 </div>
                 <!-- /.card-body-->
-                <div class="card-footer bg-transparent">
-                  <div class="row">
-                    <div class="col-4 text-center">
-                      <div id="sparkline-1"></div>
-                      <div class="text-white">Visitors</div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-4 text-center">
-                      <div id="sparkline-2"></div>
-                      <div class="text-white">Online</div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-4 text-center">
-                      <div id="sparkline-3"></div>
-                      <div class="text-white">Sales</div>
-                    </div>
-                    <!-- ./col -->
-                  </div>
-                  <!-- /.row -->
-                </div>
               </div>
               <!-- /.card -->
 
@@ -663,9 +661,6 @@
   <script type="text/javascript" src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
   <!-- Sparkline -->
   <script type="text/javascript" src="{% static 'plugins/sparklines/sparkline.js' %}"></script>
-  <!-- JQVMap -->
-  <script type="text/javascript" src="{% static 'plugins/jqvmap/jquery.vmap.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
   <!-- jQuery Knob Chart -->
   <script type="text/javascript" src="{% static 'plugins/jquery-knob/jquery.knob.min.js' %}"></script>
   <!-- daterangepicker -->
@@ -685,6 +680,13 @@
   <script type="text/javascript" src="{% static 'dist/js/pages/dashboard.js' %}"></script>
   <!-- AdminLTE for demo purposes -->
   <script type="text/javascript" src="{% static 'dist/js/demo.js' %}"></script>
+  <!-- Arcgis -->
+  <script src="https://js.arcgis.com/4.15/"></script>
+  <script type="text/javascript" src="{% static 'js/geovisor.js' %}"></script>
+  <!-- Highcharts -->
+  <script src="{% static 'js/gauge.js' %}"></script>
+  <script src="{% static 'js/historico.js' %}"></script>
+
 </body>
 
 </html>

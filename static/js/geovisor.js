@@ -14,7 +14,7 @@ require([
 
         var view = new MapView({
             center: [-74.163671, 11.229602],
-            container: "viewDiv",
+            container: "geovisor",
             map: map,
             zoom: 16
         });
