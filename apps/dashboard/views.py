@@ -7,3 +7,6 @@ def index(request):
 
 def index3(request):
     return render(request, 'dashboard/index3.html')
+
+def graficas(request):
+    return render(request, 'dashboard/graficas.html')
