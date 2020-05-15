@@ -20,7 +20,7 @@ class ChequeoSerializer(serializers.HyperlinkedModelSerializer):
         model = Chequeo
         fields = ['id',
                   'elemento',
-                  'chequeado',
+                  'importancia',
                   "tiempo",
                   "fecha",
                   ]

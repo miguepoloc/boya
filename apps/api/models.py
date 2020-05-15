@@ -18,9 +18,9 @@ class Temperatura(models.Model):
 class Chequeo(models.Model):
     id = models.AutoField(primary_key=True)
     elemento = models.CharField(max_length=500)
-    chequeado = models.BooleanField()
+    importancia = models.IntegerField()
     tiempo = models.IntegerField()
-    fecha = models.CharField(max_length=200, default=timezone.now)
+    fecha = models.CharField(max_length=300, default=timezone.now)
 
     def __str__(self):
         return str(self.id)
