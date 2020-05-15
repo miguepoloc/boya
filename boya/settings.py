@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.prueba',
     'apps.api',
-    'apps.dashboard'
+    'apps.dashboard',
+    'apps.chequeo',
 ]
 
 MIDDLEWARE = [
