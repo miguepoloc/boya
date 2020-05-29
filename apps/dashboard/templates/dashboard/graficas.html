@@ -70,7 +70,7 @@
           <!-- PIE CHART -->
           <div class="card card-danger">
             <div class="card-header">
-              <h3 class="card-title">Pie Chart</h3>
+              <h3 class="card-title">Humedad</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -80,9 +80,11 @@
               </div>
             </div>
             <div class="card-body">
-              <figure class="highcharts-figure tm-flex-center tm-flex-col">
-                  <div id="container-speed" class="chart-container"></div>
+              <div class="chart" style="text-align: center;">
+                <figure class="highcharts-figure tm-flex-center tm-flex-col">
+                  <div id="container-h" class="chart-container"></div>
                 </figure>
+              </div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -94,7 +96,7 @@
           <!-- LINE CHART -->
           <div class="card card-info">
             <div class="card-header">
-              <h3 class="card-title">Line Chart</h3>
+              <h3 class="card-title">Humedad</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -104,10 +106,7 @@
               </div>
             </div>
             <div class="card-body">
-              <div class="chart">
-                <canvas id="lineChart"
-                  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              </div>
+              <div id="container-h2"></div>
             </div>
             <!-- /.card-body -->
           </div>
@@ -165,5 +164,7 @@
   </section>
   <!-- /.content -->
 </div>
-
+<!-- Highcharts -->
+<script src="{% static 'js/gauge.js' %}"></script>
+<script src="{% static 'js/historico.js' %}"></script>
 {% endblock content %}
