@@ -68,24 +68,24 @@ Highcharts.getJSON(
 
         // Aquí viene el dato
 
-        objeto_variable["csv"] = "";
-        objeto_variable["csv"] += "Nombre del proyecto:;" + "Boya de monitoreo de invemar" + "\r\n";
-        objeto_variable["csv"] += "Lugar:;" + "Santa Marta" + "\r\n";
-        objeto_variable["csv"] += "Id:;" + "1" + "\r\n";
-        // objeto_variable["csv"] += "Fecha:;" + fecha_ctd + "\r\n";
-        // objeto_variable["csv"] += "Latitud:;" + latitud_ctd + "\r\n";
-        // objeto_variable["csv"] += "Longitud:;" + longitud_ctd + "\r\n";
-        objeto_variable["csv"] += "" + "\r\n";
-        objeto_variable["csv"] += "" + "\r\n";
+        objeto_temp["csv"] = "";
+        objeto_temp["csv"] += "Nombre del proyecto:;" + "Boya de monitoreo de invemar" + "\r\n";
+        objeto_temp["csv"] += "Lugar:;" + "Santa Marta" + "\r\n";
+        objeto_temp["csv"] += "Id:;" + "1" + "\r\n";
+        // objeto_temp["csv"] += "Fecha:;" + fecha_ctd + "\r\n";
+        // objeto_temp["csv"] += "Latitud:;" + latitud_ctd + "\r\n";
+        // objeto_temp["csv"] += "Longitud:;" + longitud_ctd + "\r\n";
+        objeto_temp["csv"] += "" + "\r\n";
+        objeto_temp["csv"] += "" + "\r\n";
 
-        objeto_variable["csv"] += "" + "\r\n";
+        objeto_temp["csv"] += "" + "\r\n";
         for (let ix = 0; ix < lista_csv.length; ix++) {
             console.log(lista_csv[ix][0]);
-            objeto_variable["csv"] += String(lista_csv[ix][0]) + ";";
-            objeto_variable["csv"] += String(lista_csv[ix][1]);
-            objeto_variable["csv"] += "" + "\r\n";
+            objeto_temp["csv"] += String(lista_csv[ix][0]) + ";";
+            objeto_temp["csv"] += String(lista_csv[ix][1]);
+            objeto_temp["csv"] += "" + "\r\n";
         }
-        objeto_variable["csv"] += "" + "\r\n";
+        objeto_temp["csv"] += "" + "\r\n";
     }
 );
 
@@ -159,35 +159,47 @@ Highcharts.getJSON(
 
         // Aquí viene el dato
 
-        objeto_variable["csv"] = "";
-        objeto_variable["csv"] += "Nombre del proyecto:;" + "Boya de monitoreo de invemar" + "\r\n";
-        objeto_variable["csv"] += "Lugar:;" + "Santa Marta" + "\r\n";
-        objeto_variable["csv"] += "Id:;" + "1" + "\r\n";
-        // objeto_variable["csv"] += "Fecha:;" + fecha_ctd + "\r\n";
-        // objeto_variable["csv"] += "Latitud:;" + latitud_ctd + "\r\n";
-        // objeto_variable["csv"] += "Longitud:;" + longitud_ctd + "\r\n";
-        objeto_variable["csv"] += "" + "\r\n";
-        objeto_variable["csv"] += "" + "\r\n";
+        objeto_hum["csv"] = "";
+        objeto_hum["csv"] += "Nombre del proyecto:;" + "Boya de monitoreo de invemar" + "\r\n";
+        objeto_hum["csv"] += "Lugar:;" + "Santa Marta" + "\r\n";
+        objeto_hum["csv"] += "Id:;" + "1" + "\r\n";
+        // objeto_hum["csv"] += "Fecha:;" + fecha_ctd + "\r\n";
+        // objeto_hum["csv"] += "Latitud:;" + latitud_ctd + "\r\n";
+        // objeto_hum["csv"] += "Longitud:;" + longitud_ctd + "\r\n";
+        objeto_hum["csv"] += "" + "\r\n";
+        objeto_hum["csv"] += "" + "\r\n";
 
-        objeto_variable["csv"] += "" + "\r\n";
+        objeto_hum["csv"] += "" + "\r\n";
         for (let ix = 0; ix < lista_csv.length; ix++) {
             console.log(lista_csv[ix][0]);
-            objeto_variable["csv"] += String(lista_csv[ix][0]) + ";";
-            objeto_variable["csv"] += String(lista_csv[ix][1]);
-            objeto_variable["csv"] += "" + "\r\n";
+            objeto_hum["csv"] += String(lista_csv[ix][0]) + ";";
+            objeto_hum["csv"] += String(lista_csv[ix][1]);
+            objeto_hum["csv"] += "" + "\r\n";
         }
-        objeto_variable["csv"] += "" + "\r\n";
+        objeto_hum["csv"] += "" + "\r\n";
     }
 );
 
 /******************************PROCESO PARA DESCARGAR CSV DE DATOS DE CTD   *******************************/
 
 // Objeto que almacena las variables
-var objeto_variable = new Object();
+var objeto_temp = new Object();
 
-function descargarCTD(evt) {
+function descargarTemp(evt) {
     var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(objeto_variable["csv"]));
+    element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(objeto_temp["csv"]));
+    element.setAttribute('download', "export.csv");
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+var objeto_hum = new Object();
+
+function descargarHum(evt) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(objeto_hum["csv"]));
     element.setAttribute('download', "export.csv");
     element.style.display = 'none';
     document.body.appendChild(element);
