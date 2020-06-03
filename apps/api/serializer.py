@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Temperatura, Chequeo, Humedad
+from .models import Temperatura, Chequeo, Humedad, Sensores
 
 
 class TemperaturaSerializer(serializers.HyperlinkedModelSerializer):
@@ -20,6 +20,21 @@ class HumedadSerializer(serializers.HyperlinkedModelSerializer):
         model = Humedad
         fields = ['id',
                   'humedad',
+                  'fecha',
+                  "unidad",
+                  "flag",
+                  "latitud",
+                  "longitud"
+                  ]
+
+
+class SensoresSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Sensores
+        fields = ['id',
+                  'variable_nombre',
+                  'variable_codigo',
+                  'variable_valor',
                   'fecha',
                   "unidad",
                   "flag",
