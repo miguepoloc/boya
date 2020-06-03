@@ -44,6 +44,9 @@
           <a onclick="descargarTemp()" class="btn btn-primary" id="descarga_boton">
             <i class="glyphicon glyphicon-download"></i> Descargar datos
           </a>
+          <a onclick="descargar()" class="btn btn-primary" id="descarga_boton">
+            <i class="glyphicon glyphicon-download"></i> Descargar TODO
+          </a>
         </div>
 
         <div class="col-md-6">
@@ -125,4 +128,5 @@
 <!-- Highcharts -->
 <script src="{% static 'js/gauge.js' %}"></script>
 <script src="{% static 'js/historico.js' %}"></script>
+<script src="{% static 'js/descarga.js' %}"></script>
 {% endblock content %}
