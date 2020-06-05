@@ -1,7 +1,7 @@
 Highcharts.getJSON(
     '/api/temperatura/',
     function (data) {
-        console.log(data);
+        // console.log(data);
         data = data.results;
         var lista = [];
         var lista_csv = [];
@@ -11,7 +11,7 @@ Highcharts.getJSON(
             lista_csv.push([data[index].fecha, data[index].temperatura]);
 
         }
-        console.log(lista_csv);
+        // console.log(lista_csv);
 
         Highcharts.chart('container', {
             chart: {
@@ -80,7 +80,7 @@ Highcharts.getJSON(
 
         objeto_temp["csv"] += "" + "\r\n";
         for (let ix = 0; ix < lista_csv.length; ix++) {
-            console.log(lista_csv[ix][0]);
+            // console.log(lista_csv[ix][0]);
             objeto_temp["csv"] += String(lista_csv[ix][0]) + ";";
             objeto_temp["csv"] += String(lista_csv[ix][1]);
             objeto_temp["csv"] += "" + "\r\n";
@@ -92,7 +92,7 @@ Highcharts.getJSON(
 Highcharts.getJSON(
     '/api/humedad/',
     function (data) {
-        console.log(data);
+        // console.log(data);
         data = data.results;
         var lista = [];
         var lista_csv = [];
@@ -102,7 +102,7 @@ Highcharts.getJSON(
             lista_csv.push([data[index].fecha, data[index].humedad]);
 
         }
-        console.log(lista_csv);
+        // console.log(lista_csv);
 
         Highcharts.chart('container-h2', {
             chart: {
@@ -171,7 +171,7 @@ Highcharts.getJSON(
 
         objeto_hum["csv"] += "" + "\r\n";
         for (let ix = 0; ix < lista_csv.length; ix++) {
-            console.log(lista_csv[ix][0]);
+            // console.log(lista_csv[ix][0]);
             objeto_hum["csv"] += String(lista_csv[ix][0]) + ";";
             objeto_hum["csv"] += String(lista_csv[ix][1]);
             objeto_hum["csv"] += "" + "\r\n";

@@ -23,8 +23,44 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" id="row_control">
+        <!-- Nuevo -->
 
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Temperatura</h3>
+            </div>
+            <div class="card-body">
+              <div class="chart" style="text-align: center;">
+                <figure class="highcharts-figure tm-flex-center tm-flex-col">
+                  <div id="container1" class="chart-container"></div>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <a onclick="descargarTemp()" class="btn btn-primary" id="descarga_boton">
+            <i class="glyphicon glyphicon-download"></i> Descargar datos
+          </a>
+          <a onclick="descargar()" class="btn btn-primary" id="descarga_boton">
+            <i class="glyphicon glyphicon-download"></i> Descargar TODO
+          </a>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card card-danger">
+            <div class="card-header">
+              <h3 class="card-title">Temperatura</h3>
+            </div>
+            <div class="card-body">
+              <div id="container2"></div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Viejo -->
         <div class="col-md-6">
           <!-- Temperatura CHART -->
           <div class="card card-primary">
@@ -129,4 +165,5 @@
 <script src="{% static 'js/gauge.js' %}"></script>
 <script src="{% static 'js/historico.js' %}"></script>
 <script src="{% static 'js/descarga.js' %}"></script>
+<script src="{% static 'js/graficas.js' %}"></script>
 {% endblock content %}

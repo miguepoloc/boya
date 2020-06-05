@@ -1,13 +1,13 @@
 Highcharts.getJSON(
     '/api/sensores/',
     function (data) {
-        console.log(data);
+        // console.log(data);
         data = data.results;
         var lista_csv = [];
         for (let index = 0; index < data.length; index++) {
             lista_csv.push([data[index].variable_nombre, data[index].variable_valor, data[index].unidad, data[index].fecha, data[index].flag, data[index].latitud, data[index].longitud]);
         }
-        console.log(lista_csv);
+        // console.log(lista_csv);
 
         // Aquí viene el dato
         objeto_sensores["csv"] = "";
@@ -24,7 +24,7 @@ Highcharts.getJSON(
         objeto_sensores["csv"] += "" + "\r\n";
         objeto_sensores["csv"] += "" + "\r\n";
         for (let ix = 0; ix < lista_csv.length; ix++) {
-            console.log(lista_csv[ix][0]);
+            // console.log(lista_csv[ix][0]);
             objeto_sensores["csv"] += String(lista_csv[ix][0]) + ";";
             objeto_sensores["csv"] += String(lista_csv[ix][1]) + ";";
             objeto_sensores["csv"] += String(lista_csv[ix][2]) + ";";
