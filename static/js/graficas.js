@@ -4,6 +4,10 @@ var sensores;
 var objeto_variable = new Object();
 // Objeto que almacena las unidades
 var objeto_unidades = new Object();
+// Objeto que almacena las fechas
+var objeto_fecha = new Object();
+// Objeto que almacena las fechas UNIX
+var objeto_fecha_UNIX = new Object();
 // Almacena el html que se le anexará al código de las gráficas
 var html = "";
 
@@ -62,12 +66,6 @@ function control() {
         }
     }
 
-    console.log(vector_variable_cod);
-    console.log(vector_variable);
-    console.log(vector_unidad);
-    console.log(vector_fecha);
-
-
     // Se recorren todas las posiciones del vector que contiene a las variables
     for (i = 0; i < vector_variable.length; i++) {
         // Se crea el contenedor de las gráficas
@@ -95,13 +93,21 @@ function control() {
         html += '</div>';
         html += '</div>';
         html += '</div>';
+
         // Se añade un atributo al objeto de las variables que será una lista vacía
         // que tendrá como nombre la variable de la posición i
         objeto_variable[vector_variable[i]] = [];
+
         // Se añade un atributo al objeto de las unidades que será la unidad
         // de la misma posición i que tendrá como nombre la variable de la posición i
         objeto_unidades[vector_variable[i]] = vector_unidad[i];
+
+        // Igualmente con la fecha
+        objeto_fecha[vector_variable[i]] = [];
+        // Igualmente con la fecha UNIX
+        objeto_fecha_UNIX[vector_variable[i]] = [];
     }
+
     // Se anexa el contenedor de las gráficas al html
     $("#row_control").html(html);
 
@@ -115,13 +121,30 @@ function control() {
                 // Se añade el valor de la lista del sensor en la posición i al objeto variable en su 
                 // posición correspondiente a vector variable j
                 objeto_variable[vector_variable[j]].push(sensores[i]["variable_valor"]);
+
+                // Se añade el valor de la fecha del sensor en la posición i al objeto fecha en su
+                // posición correspondiente al vector variable j
+                // ESTO CON EL FIN DE TENER UN VECTOR DEL MISMO TAMAÑO PARA CADA VALOR Y FECHA SEGÚN SU VARIABLE
+                objeto_fecha[vector_variable[j]].push(sensores[i]["fecha"]);
+
+                //Pero para poder graficar se usa la fecha UNIX
+                // Convertir fecha a UNIX new Date('2020-6-8 18:9:32').getTime() / 1000
+
+                anio = sensores[i]["fecha"].slice(0, 4);
+                mes = sensores[i]["fecha"].slice(5, 7);
+                mes = mes - 1;
+                dia = sensores[i]["fecha"].slice(8, 10);
+                hora = sensores[i]["fecha"].slice(11, 13);
+                minuto = sensores[i]["fecha"].slice(14, 16);
+                segundo = sensores[i]["fecha"].slice(17, 18);
+                objeto_fecha_UNIX[vector_variable[j]].push(Date.UTC(anio, mes, dia, hora, minuto));
+
+                // fecha_unix.push(Date.UTC(anio, mes, dia, hora, minuto));
+
+                // unix = new Date(sensores[i]["fecha"]).getTime()
+                // objeto_fecha_UNIX[vector_variable[j]].push(unix);
             }
         }
-    }
-
-
-    for (i = 0; i < vector_variable.length; i++) {
-        grafica(vector_variable[i]);
     }
 
     iq = 0;
@@ -135,12 +158,13 @@ function control() {
 function grafica(sx) {
     // Vector que almacena los datos a graficar
     vector_grafica = [];
-    // Se almacena una variable en el objeto
-    objeto_variable["grafica"] = [];
 
-    for (i = 0; i < objeto_variable[vector_variable[0]].length; i++) {
-        objeto_variable["grafica"].push([vector_fecha[i], objeto_variable[sx][i]]);
+    for (i = 0; i < objeto_variable[sx].length; i++) {
+        vector_grafica.push([objeto_fecha_UNIX[sx][i], objeto_variable[sx][i]]);
     }
+
+    ultimo = [];
+    ultimo.push(objeto_variable[sx][objeto_variable[sx].length - 1]);
 
     // Gráfica de datos históricos
     Highcharts.chart('container-h-' + sx, {
@@ -191,11 +215,13 @@ function grafica(sx) {
         series: [{
             type: 'area',
             name: sx,
-            data: objeto_variable["grafica"]
+            data: vector_grafica,
         }]
     }
     );
 
+
+    // GAUGE
     var gaugeOptions = {
         chart: {
             type: 'solidgauge'
@@ -272,17 +298,14 @@ function grafica(sx) {
 
         series: [{
             name: sx,
-            data: objeto_variable["grafica"][objeto_variable["grafica"].length - 1],
+            data: ultimo,
             dataLabels: {
                 format:
                     '<div style="text-align:center">' +
-                    '<span style="font-size:25px">{y}</span><br/>' +
-                    '<span style="font-size:12px;opacity:0.4">°C</span>' +
+                    '<span style="font-size:25px">' + objeto_variable[sx][objeto_variable[sx].length - 1] + '</span><br/>' +
+                    '<span style="font-size:12px;opacity:0.4">' + objeto_unidades[sx] + '</span>' +
                     '</div>'
             },
-            tooltip: {
-                valueSuffix: ' °C'
-            }
         }]
 
     }));
