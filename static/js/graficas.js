@@ -14,9 +14,9 @@ var html = "";
 
 
 // Función de inicio
-$(document).ready(function () {
+$(document).ready(function() {
     //Obtiene los datos de la CTD de la API
-    $.get('/api/sensores/', function (result) {
+    $.get('/api/sensores/', function(result) {
         // Guarda en la variable ctd los resultados de la API
         sensores = result.results;
         // Llama a la función gráfica
@@ -82,6 +82,9 @@ function control() {
         html += '</div>';
         html += '</div>';
         html += '</div>';
+        html += '<a onclick="descargar_' + vector_variable[i] + '" class="btn btn-block btn-success" id="descarga_boton" style=" display: flex; align-items: center; justify-content: center;color: white;margin-bottom: 16px;">';
+        html += '<i class="nav-icon fa fa-download"></i> Descargar datos';
+        html += '</a>';
         html += '</div>';
         html += '<div class="col-md-6">';
         html += '<div class="card card-danger">';
@@ -138,11 +141,6 @@ function control() {
                 minuto = sensores[i]["fecha"].slice(14, 16);
                 segundo = sensores[i]["fecha"].slice(17, 18);
                 objeto_fecha_UNIX[vector_variable[j]].push(Date.UTC(anio, mes, dia, hora, minuto));
-
-                // fecha_unix.push(Date.UTC(anio, mes, dia, hora, minuto));
-
-                // unix = new Date(sensores[i]["fecha"]).getTime()
-                // objeto_fecha_UNIX[vector_variable[j]].push(unix);
             }
         }
     }
@@ -159,10 +157,31 @@ function grafica(sx) {
     // Vector que almacena los datos a graficar
     vector_grafica = [];
 
+    var maxValue = objeto_variable[sx][0];
+    var minValue = objeto_variable[sx][0];
+    var promedio = 0;
     for (i = 0; i < objeto_variable[sx].length; i++) {
         vector_grafica.push([objeto_fecha_UNIX[sx][i], objeto_variable[sx][i]]);
+
+        var valor_menor = objeto_variable[sx][i];
+        if (valor_menor > maxValue) {
+            maxValue = valor_menor;
+        }
+
+        var valor_mayor = objeto_variable[sx][i];
+        if (valor_mayor < minValue) {
+            minValue = valor_mayor;
+        }
+
+        promedio = promedio + parseInt(objeto_variable[sx][i]);
     }
 
+    promedio = promedio / objeto_variable[sx].length;
+    console.log(promedio);
+
+    console.log(objeto_variable[sx]);
+    console.log(maxValue);
+    console.log(minValue);
     ultimo = [];
     ultimo.push(objeto_variable[sx][objeto_variable[sx].length - 1]);
 
@@ -217,8 +236,7 @@ function grafica(sx) {
             name: sx,
             data: vector_grafica,
         }]
-    }
-    );
+    });
 
 
     // GAUGE
@@ -230,13 +248,12 @@ function grafica(sx) {
         title: sx,
 
         pane: {
-            center: ['50%', '85%'],
+            center: ['50%', '75%'],
             size: '140%',
             startAngle: -90,
             endAngle: 90,
             background: {
-                backgroundColor:
-                    Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+                backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
                 innerRadius: '60%',
                 outerRadius: '100%',
                 shape: 'arc'
@@ -285,8 +302,8 @@ function grafica(sx) {
     // Gauge temperatura 
     var chartTemp = Highcharts.chart('container-' + sx, Highcharts.merge(gaugeOptions, {
         yAxis: {
-            min: 10,
-            max: 40,
+            min: minValue - promedio / 2,
+            max: maxValue + promedio / 2,
             title: {
                 text: sx
             }
@@ -300,8 +317,7 @@ function grafica(sx) {
             name: sx,
             data: ultimo,
             dataLabels: {
-                format:
-                    '<div style="text-align:center">' +
+                format: '<div style="text-align:center">' +
                     '<span style="font-size:25px">' + objeto_variable[sx][objeto_variable[sx].length - 1] + '</span><br/>' +
                     '<span style="font-size:12px;opacity:0.4">' + objeto_unidades[sx] + '</span>' +
                     '</div>'
