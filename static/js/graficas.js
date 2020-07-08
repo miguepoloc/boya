@@ -66,6 +66,7 @@ function control() {
         }
     }
 
+    console.log(vector_fecha);
     // Se recorren todas las posiciones del vector que contiene a las variables
     for (i = 0; i < vector_variable.length; i++) {
         // Se crea el contenedor de las gráficas
@@ -139,8 +140,9 @@ function control() {
                 dia = sensores[i]["fecha"].slice(8, 10);
                 hora = sensores[i]["fecha"].slice(11, 13);
                 minuto = sensores[i]["fecha"].slice(14, 16);
-                segundo = sensores[i]["fecha"].slice(17, 18);
-                objeto_fecha_UNIX[vector_variable[j]].push(Date.UTC(anio, mes, dia, hora, minuto));
+                segundo = sensores[i]["fecha"].slice(17, 19);
+                console.log(segundo);
+                objeto_fecha_UNIX[vector_variable[j]].push(Date.UTC(anio, mes, dia, hora, minuto, segundo));
             }
         }
     }
@@ -177,11 +179,7 @@ function grafica(sx) {
     }
 
     promedio = promedio / objeto_variable[sx].length;
-    console.log(promedio);
 
-    console.log(objeto_variable[sx]);
-    console.log(maxValue);
-    console.log(minValue);
     ultimo = [];
     ultimo.push(objeto_variable[sx][objeto_variable[sx].length - 1]);
 
