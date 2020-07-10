@@ -14,8 +14,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet"
-        href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
     <!-- Theme style -->
@@ -25,7 +24,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.css' %}">
     <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/fuente.css' %}">
 
     <!-- Arcgis -->
     <style>
@@ -38,18 +37,18 @@
             width: 100%;
         }
     </style>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/css/main.css">
+    <link rel="stylesheet" href="{% static 'css/arcgis.css' %}">
 
     <!-- Highcharts -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="https://code.highcharts.com/modules/data.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'js/highcharts.js' %}"></script>
+    <script src="{% static 'js/highcharts-more.js' %}"></script>
+    <script src="{% static 'js/solid-gauge.js' %}"></script>
+    <script src="{% static 'js/exporting.js' %}"></script>
+    <script src="{% static 'js/export-data.js' %}"></script>
+    <script src="{% static 'js/accessibility.js' %}"></script>
+    <script src="{% static 'js/data.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -76,8 +75,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{% url 'index_dashboard' %}" class="brand-link">
-                <img src="{% static 'img/logo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                    style="opacity: .8">
+                <img src="{% static 'img/logo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">INVEMAR</span>
             </a>
 
@@ -85,8 +83,7 @@
             <div>
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview menu-open">
@@ -104,7 +101,8 @@
                                     Gráficas
                                 </p>
                             </a>
-                        </li>                        <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
                             <a href="{% url 'chequeo' %}" class="nav-link">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
@@ -309,13 +307,11 @@
         </aside>
 
         <!-- Contenido de la página -->
-        {% block content %}
-        {% endblock content %}
+        {% block content %} {% endblock content %}
 
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2020 <a href="http://www.invemar.org.co/">INVEMAR</a>.</strong>
-            All rights reserved.
+            <strong>Copyright &copy; 2020 <a href="http://www.invemar.org.co/">INVEMAR</a>.</strong> All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 1.0
             </div>
@@ -349,8 +345,7 @@
     <script type="text/javascript" src="{% static 'plugins/moment/moment.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script type="text/javascript"
-        src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
     <!-- Summernote -->
     <script type="text/javascript" src="{% static 'plugins/summernote/summernote-bs4.min.js' %}"></script>
     <!-- overlayScrollbars -->
@@ -366,4 +361,5 @@
 <!-- Arcgis -->
 <script src="https://js.arcgis.com/4.15/"></script>
 <script type="text/javascript" src="{% static 'js/geovisor.js' %}"></script>
+
 </html>

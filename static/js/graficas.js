@@ -49,15 +49,17 @@ function control() {
 
         // Se realiza el mismo proceso anterior pero con el nombre de la variable
         variable = String(sensores[i]["variable_nombre"]);
+        unidad = String(sensores[i]["unidad"]);
         if (vector_variable.includes(variable) == false) {
             vector_variable.push(variable);
+            vector_unidad.push(unidad);
         }
 
         // Se realiza el mismo proceso anterior pero con la unidad de la variable
-        unidad = String(sensores[i]["unidad"]);
-        if (vector_unidad.includes(unidad) == false) {
-            vector_unidad.push(unidad);
-        }
+        // unidad = String(sensores[i]["unidad"]);
+        // if (vector_unidad.includes(unidad) == false) {
+        //     vector_unidad.push(unidad);
+        // }
 
         // Se realiza el mismo proceso anterior pero con la fecha
         fecha = String(sensores[i]["fecha"]);
@@ -66,8 +68,9 @@ function control() {
         }
     }
 
-    console.log(vector_fecha);
-    // Se recorren todas las posiciones del vector que contiene a las variables
+    console.log(vector_variable);
+    console.log(vector_unidad)
+        // Se recorren todas las posiciones del vector que contiene a las variables
     for (i = 0; i < vector_variable.length; i++) {
         // Se crea el contenedor de las gráficas
         html += '<div class="col-md-6">';
@@ -83,7 +86,8 @@ function control() {
         html += '</div>';
         html += '</div>';
         html += '</div>';
-        html += '<a onclick="descargar_' + vector_variable[i] + '" class="btn btn-block btn-success" id="descarga_boton" style=" display: flex; align-items: center; justify-content: center;color: white;margin-bottom: 16px;">';
+        html += '<a onclick="descargar()" class="btn btn-block btn-success" id="descarga_boton" style=" display: flex; align-items: center; justify-content: center;color: white;margin-bottom: 16px;">';
+        // html += '<a onclick="descargar_' + vector_variable[i] + '" class="btn btn-block btn-success" id="descarga_boton" style=" display: flex; align-items: center; justify-content: center;color: white;margin-bottom: 16px;">';
         html += '<i class="nav-icon fa fa-download"></i> Descargar datos';
         html += '</a>';
         html += '</div>';
@@ -112,6 +116,8 @@ function control() {
         objeto_fecha_UNIX[vector_variable[i]] = [];
     }
 
+    console.log(objeto_variable);
+    console.log(objeto_unidades);
     // Se anexa el contenedor de las gráficas al html
     $("#row_control").html(html);
 
@@ -141,7 +147,6 @@ function control() {
                 hora = sensores[i]["fecha"].slice(11, 13);
                 minuto = sensores[i]["fecha"].slice(14, 16);
                 segundo = sensores[i]["fecha"].slice(17, 19);
-                console.log(segundo);
                 objeto_fecha_UNIX[vector_variable[j]].push(Date.UTC(anio, mes, dia, hora, minuto, segundo));
             }
         }
@@ -186,7 +191,8 @@ function grafica(sx) {
     // Gráfica de datos históricos
     Highcharts.chart('container-h-' + sx, {
         chart: {
-            zoomType: 'x'
+            // type: 'spline',
+            zoomType: 'x',
         },
         title: {
             text: 'Histórico de datos'
@@ -230,7 +236,7 @@ function grafica(sx) {
         },
 
         series: [{
-            type: 'area',
+            type: 'spline',
             name: sx,
             data: vector_grafica,
         }]
@@ -297,7 +303,7 @@ function grafica(sx) {
     };
 
 
-    // Gauge temperatura 
+    // Gauge
     var chartTemp = Highcharts.chart('container-' + sx, Highcharts.merge(gaugeOptions, {
         yAxis: {
             min: minValue - promedio / 2,
@@ -316,11 +322,21 @@ function grafica(sx) {
             data: ultimo,
             dataLabels: {
                 format: '<div style="text-align:center">' +
-                    '<span style="font-size:25px">' + objeto_variable[sx][objeto_variable[sx].length - 1] + '</span><br/>' +
+                    '<span style="font-size:25px">' + trunc(objeto_variable[sx][objeto_variable[sx].length - 1], 2) + '</span><br/>' +
                     '<span style="font-size:12px;opacity:0.4">' + objeto_unidades[sx] + '</span>' +
                     '</div>'
             },
         }]
 
     }));
+
+    console.log(trunc(objeto_variable[sx][objeto_variable[sx].length - 1], 2));
+}
+
+function trunc(x, posiciones = 0) {
+    var s = x.toString()
+    var l = s.length
+    var decimalLength = s.indexOf('.') + 1
+    var numStr = s.substr(0, decimalLength + posiciones)
+    return Number(numStr)
 }
