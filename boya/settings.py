@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'apps.prueba',
-    'apps.api'
+    'apps.api',
+    'apps.dashboard',
+    'apps.chequeo',
 ]
 
 MIDDLEWARE = [
@@ -120,7 +122,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
