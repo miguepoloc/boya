@@ -163,12 +163,20 @@ function control() {
 function grafica(sx) {
     // Vector que almacena los datos a graficar
     vector_grafica = [];
-
     var maxValue = objeto_variable[sx][0];
     var minValue = objeto_variable[sx][0];
     var promedio = 0;
+
+    Dato = objeto_variable[sx]
+    var kalmanFilter = new KalmanFilter({ R: 0.01, Q: 3 });
+    var dataConstantKalman = Dato.map(function(v) {
+        return kalmanFilter.filter(v);
+    });
+    vector_grafica_kalman = [];
+
     for (i = 0; i < objeto_variable[sx].length; i++) {
         vector_grafica.push([objeto_fecha_UNIX[sx][i], objeto_variable[sx][i]]);
+        vector_grafica_kalman.push([objeto_fecha_UNIX[sx][i], dataConstantKalman[i]]);
 
         var valor_menor = objeto_variable[sx][i];
         if (valor_menor > maxValue) {
@@ -236,10 +244,16 @@ function grafica(sx) {
         },
 
         series: [{
-            type: 'spline',
-            name: sx,
-            data: vector_grafica,
-        }]
+                type: 'spline',
+                name: sx,
+                data: vector_grafica,
+            },
+            {
+                type: 'spline',
+                name: sx,
+                data: vector_grafica_kalman,
+            }
+        ]
     });
 
 
